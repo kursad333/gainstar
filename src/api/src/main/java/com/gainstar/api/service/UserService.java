@@ -1,8 +1,8 @@
 package com.gainstar.api.service;
 
-import com.gainstar.api.entity.User;
-import com.gainstar.api.entity.UserCreationDTO;
-import com.gainstar.api.entity.UserRole;
+import com.gainstar.api.entity.user.User;
+import com.gainstar.api.entity.user.UserCreationDTO;
+import com.gainstar.api.entity.user.UserRole;
 import com.gainstar.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

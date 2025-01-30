@@ -1,7 +1,7 @@
 package com.gainstar.api.controller;
 
-import com.gainstar.api.entity.User;
-import com.gainstar.api.entity.UserCreationDTO;
+import com.gainstar.api.entity.user.User;
+import com.gainstar.api.entity.user.UserCreationDTO;
 import com.gainstar.api.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +38,7 @@ public class UserController {
             }
             return ResponseEntity.status(201).body(newUser);
         } catch (Exception e) {
-            return ResponseEntity.status(500).build();
+            return ResponseEntity.status(400).build();
         }
     }
 }
