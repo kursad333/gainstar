@@ -1,6 +1,6 @@
 package com.gainstar.api.repository;
 
-import com.gainstar.api.entity.User;
+import com.gainstar.api.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
