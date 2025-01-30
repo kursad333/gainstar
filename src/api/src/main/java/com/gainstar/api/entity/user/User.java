@@ -1,4 +1,4 @@
-package com.gainstar.api.entity;
+package com.gainstar.api.entity.user;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
