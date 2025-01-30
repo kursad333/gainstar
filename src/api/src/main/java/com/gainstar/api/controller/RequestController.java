@@ -4,10 +4,7 @@ import com.gainstar.api.entity.action.*;
 import com.gainstar.api.service.PowerSessionService;
 import com.gainstar.api.service.SessionService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,12 +12,13 @@ import java.util.List;
 import static java.lang.Long.parseLong;
 
 @RestController
+@RequestMapping("/api/v1/session")
 public class RequestController {
 
     private final PowerSessionService powerSessionService;
     private final SessionService sessionService;
 
-    @GetMapping("/api")
+    @GetMapping("/")
     public String getApi() {
         return "Hello from a bloated Java framework";
     }
@@ -30,7 +28,7 @@ public class RequestController {
         this.sessionService = sessionService;
     }
 
-    @PutMapping("/api/power-session")
+    @PutMapping("/power")
     public void createPowerSession() {
         // Create a power session
         PowerSession powerSession = new PowerSession();
@@ -69,11 +67,23 @@ public class RequestController {
         this.powerSessionService.createPowerSession(powerSession);
     }
 
-    @GetMapping("/api/power-session/{id}")
-    public ResponseEntity<PowerSession> getPowerSession(@PathVariable String id) {
+    @GetMapping("/power/{id}")
+    public ResponseEntity<Session> getPowerSession(@PathVariable String id) {
         PowerSession test = this.powerSessionService.getPowerSession(parseLong(id));
-        return ResponseEntity.status(200).body(test);
+        Session test2 = this.sessionService.getSession(parseLong(id));
+        return ResponseEntity.status(200).body(test2);
     }
 
-
+    //TODO:
+    // Ideally we want a structure like this:
+    // SessionController.class
+    // function getSession URL/api/session/{type}/{id}
+    // switch (type)
+    // if session type = power
+    // return PowerSessionController.functionName(id)
+    // if session type = cardio
+    // return CardioSessionController.functionName(id)
+    // along with correct error handling in the SessionController itself
+    // this way we can leverage each controller for a specific session type
+    // keeping the SessionController clean and concise and easy to maintain
 }
