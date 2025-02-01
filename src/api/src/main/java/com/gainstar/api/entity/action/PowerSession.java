@@ -2,6 +2,7 @@ package com.gainstar.api.entity.action;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,7 @@ public class PowerSession extends Session {
     @Enumerated(EnumType.STRING)
     private PowerGroup powerGroup;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<PowerAction> exerciseList;
+    private List<PowerAction> exerciseList = new ArrayList<>();
 
     public String getName() {
         return name;
