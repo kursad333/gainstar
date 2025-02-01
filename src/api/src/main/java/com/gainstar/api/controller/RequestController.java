@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Long.parseLong;
@@ -65,6 +66,49 @@ public class RequestController {
 
         // Persist power session (cascades will persist child entities)
         this.powerSessionService.createPowerSession(powerSession);
+    }
+
+    @PutMapping("/power/set/{id}")
+    public ResponseEntity<ExerciseSet> addExerciseSet(@PathVariable Long id) {
+        ExerciseSet exerciseSet1 = new ExerciseSet();
+        exerciseSet1.setReps(8L);
+        exerciseSet1.setWeight(20.0);
+
+        ExerciseSet exerciseSet2 = new ExerciseSet();
+        exerciseSet2.setReps(4L);
+        exerciseSet2.setWeight(22.0);
+
+
+        PowerSession powerSession = this.powerSessionService.getPowerSession(1L);
+        List<PowerAction> exerciseList = powerSession.getExerciseList();
+
+// Ensure the exercise list is initialized
+        if (exerciseList == null) {
+            exerciseList = new ArrayList<>();
+            powerSession.setExerciseList(exerciseList);
+        }
+
+// Find an existing PowerAction or create a new one
+        PowerAction powerAction;
+        if (!exerciseList.isEmpty()) {
+            powerAction = exerciseList.get(0); // Pick an existing one
+        } else {
+            powerAction = new PowerAction();
+            powerAction.setSetList(new ArrayList<>()); // Initialize set list
+            exerciseList.add(powerAction);
+        }
+
+        List<PowerAction> powerActions = powerSession.getExerciseList();
+//        powerActions.
+
+// Add the set to the PowerAction
+//        powerAction.getSetList().add(exerciseSet1);
+//        powerAction.getSetList().add(exerciseSet2);
+
+// Save the updated PowerSession
+        this.powerSessionService.updatePowerSession(powerSession);
+
+        return ResponseEntity.ok(exerciseSet1);
     }
 
     @GetMapping("/power/{id}")

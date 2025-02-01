@@ -3,6 +3,7 @@ package com.gainstar.api.entity.action;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,6 +44,10 @@ public class PowerAction {
     public void setSetList(List<ExerciseSet> setList) {
         this.setList = setList;
     }
+
+     public void addSetToList(ExerciseSet set) {
+        this.setList.add(set);
+     }
 
     public Long getRating() {
         return rating;

@@ -21,4 +21,12 @@ public class PowerSessionService {
     public PowerSession getPowerSession(Long id) {
         return this.powerSessionRepository.findById(id).orElse(null);
     }
+
+    public void updatePowerSession(PowerSession powerSession) {
+        PowerSession a = this.powerSessionRepository.findById(powerSession.getId()).orElse(null);
+        if(a != null) {
+            this.powerSessionRepository.save(powerSession);
+        }
+
+    }
 }

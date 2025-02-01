@@ -31,7 +31,7 @@ public class PowerSession extends Session {
     }
 
     public List<PowerAction> getExerciseList() {
-        return exerciseList;
+        return this.exerciseList;
     }
 
     public void setExerciseList(List<PowerAction> exerciseList) {
