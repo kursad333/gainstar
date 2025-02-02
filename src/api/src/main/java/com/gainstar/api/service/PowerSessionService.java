@@ -30,25 +30,14 @@ public class PowerSessionService {
             } else {
                 throw new IllegalArgumentException("Invalid power group");
             }
-            powerSession.setStartTime(powerSessionDTO.endTime());
-            powerSession.setEndTime(powerSessionDTO.startTime());
+            powerSession.setStartTime(powerSessionDTO.startTime());
+            powerSession.setEndTime(powerSessionDTO.endTime());
             powerSession.setType("Power");
 
-
-            if (powerSessionDTO.actions() != null) {
-                powerSessionDTO.actions().forEach(action -> {
-                    // Create exercise
-                    Exercise exercise = this.exerciseService.getExerciseById(action.exerciseId());
-                    if (exercise == null) {
-                        throw new IllegalArgumentException("Invalid exercise");
-                    }
-
-                    // Create power action
-                    PowerAction powerAction = new PowerAction();
-                    powerAction.setExercise(exercise);
-                    powerSession.setExerciseList(List.of(powerAction));
-                });
-            }
+            powerSessionDTO.actions().forEach(action -> {
+                PowerAction powerAction = createPowerAction(action);
+                powerSession.addActionToList(powerAction);
+            });
 
             return this.powerSessionRepository.save(powerSession);
 
@@ -56,6 +45,46 @@ public class PowerSessionService {
             throw new IllegalArgumentException("Invalid power session");
         }
     }
+
+    public PowerSession addActionToSession(PowerSession powerSession, PowerSessionActionDTO powerSessionActionDTO) {
+        if (powerSession.getExerciseList().contains(powerSessionActionDTO.exerciseId())) {
+            throw new IllegalArgumentException("Exercise already exists in the session");
+        }
+
+        PowerAction powerAction = createPowerAction(powerSessionActionDTO);
+        powerSession.addActionToList(powerAction);
+        return this.powerSessionRepository.save(powerSession);
+    }
+
+    private PowerAction createPowerAction(PowerSessionActionDTO powerSessionActionDTO) {
+        PowerAction powerAction = new PowerAction();
+
+        // Make sure this fetches the exercise from the DB
+        Exercise exercise = this.exerciseService.getExerciseById(powerSessionActionDTO.exerciseId());
+
+        // Ensure the exercise is managed by the persistence context
+        if (exercise == null) {
+            throw new IllegalArgumentException("Exercise with ID " + powerSessionActionDTO.exerciseId() + " not found");
+        }
+
+        powerAction.setExercise(exercise);
+
+        if (powerSessionActionDTO.sets() == null) {
+            return powerAction;
+        }
+
+        powerSessionActionDTO.sets().forEach(set -> {
+            ExerciseSet exerciseSet = new ExerciseSet();
+            exerciseSet.setReps(set.getReps());
+            exerciseSet.setWeight(set.getWeight());
+            powerAction.addSetToList(exerciseSet);
+        });
+
+        powerAction.setRating(powerSessionActionDTO.rating());
+
+        return powerAction;
+    }
+
 
     public PowerSession getPowerSession(Long id) {
         return this.powerSessionRepository.findById(id).orElse(null);
