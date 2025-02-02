@@ -1,8 +1,10 @@
 package com.gainstar.api.entity.action;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Immutable;
 
 @Entity
+@Immutable
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
