@@ -38,4 +38,8 @@ public class PowerSession extends Session {
     public void setExerciseList(List<PowerAction> exerciseList) {
         this.exerciseList = exerciseList;
     }
+
+    public void addActionToList(PowerAction action) {
+        this.exerciseList.add(action);
+    }
 }
