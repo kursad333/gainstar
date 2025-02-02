@@ -13,13 +13,15 @@ public class PowerAction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exercise_id", nullable = false)
     private Exercise exercise;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<ExerciseSet> setList;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ExerciseSet> setList = new ArrayList<>();
 
     private Long rating;
+
 
     public Long getId() {
         return id;
@@ -45,9 +47,9 @@ public class PowerAction {
         this.setList = setList;
     }
 
-     public void addSetToList(ExerciseSet set) {
+    public void addSetToList(ExerciseSet set) {
         this.setList.add(set);
-     }
+    }
 
     public Long getRating() {
         return rating;
