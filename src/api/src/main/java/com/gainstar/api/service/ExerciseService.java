@@ -13,6 +13,6 @@ public class ExerciseService {
     }
 
     public Exercise getExerciseById(Long id) {
-        return exerciseRepository.findById(id).orElse(null);
+        return exerciseRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Exercise with ID " + id + " not found"));
     }
 }
