@@ -4,7 +4,8 @@ import java.util.List;
 
 public record PowerSessionActionDTO(
         Long exerciseId,
-        List<ExerciseSet> sets
+        List<ExerciseSet> sets,
+        Long rating
 ) {
     public PowerSessionActionDTO {
         if (sets == null) {
