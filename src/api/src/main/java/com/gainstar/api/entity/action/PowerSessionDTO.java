@@ -9,7 +9,7 @@ public record PowerSessionDTO(
         LocalDateTime endTime,
         String name,
         String group,
-        List<PowerSessionActionDTO> actions
+        List<PowerActionDTO> actions
 ) {
     public PowerSessionDTO {
         if (actions == null) {
