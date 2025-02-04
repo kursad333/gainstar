@@ -2,7 +2,7 @@ package com.gainstar.api.controller;
 
 
 import com.gainstar.api.entity.action.PowerSession;
-import com.gainstar.api.entity.action.PowerSessionActionDTO;
+import com.gainstar.api.entity.action.PowerActionDTO;
 import com.gainstar.api.entity.action.PowerSessionDTO;
 import com.gainstar.api.service.PowerSessionService;
 import com.gainstar.api.service.UserService;
@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class PowerSessionController {
 
     private final PowerSessionService powerSessionService;
-    private final UserService userService;
 
-    public PowerSessionController(PowerSessionService powerSessionService, UserService userService) {
+    public PowerSessionController(PowerSessionService powerSessionService) {
         this.powerSessionService = powerSessionService;
-        this.userService = userService;
     }
 
     @PostMapping("/session/create")
@@ -36,10 +34,10 @@ public class PowerSessionController {
     }
 
     @PostMapping("/session/{id}/action")
-    public ResponseEntity<PowerSession> addActionToSession(@RequestBody PowerSessionActionDTO powerSessionActionDTO, @PathVariable Long id) {
+    public ResponseEntity<PowerSession> addActionToSession(@RequestBody PowerActionDTO powerActionDTO, @PathVariable Long id) {
         PowerSession doesExist = this.powerSessionService.getPowerSession(id);
         if (doesExist != null) {
-            PowerSession updated = this.powerSessionService.addActionToSession(doesExist, powerSessionActionDTO);
+            PowerSession updated = this.powerSessionService.addActionToSession(doesExist, powerActionDTO);
             return ResponseEntity
                     .status(201)
                     .body(updated);
@@ -51,7 +49,16 @@ public class PowerSessionController {
     }
 
     @GetMapping("/session/{id}")
-    public ResponseEntity<PowerSessionDTO> getPowerSession(@PathVariable String id) {
-        return null;
+    public ResponseEntity<PowerSession> getPowerSession(@PathVariable String id) {
+        PowerSession powerSession = this.powerSessionService.getPowerSession(Long.parseLong(id));
+        if (powerSession != null) {
+            return ResponseEntity
+                    .status(200)
+                    .body(powerSession);
+        } else {
+            return ResponseEntity
+                    .status(404)
+                    .body(null);
+        }
     }
 }
