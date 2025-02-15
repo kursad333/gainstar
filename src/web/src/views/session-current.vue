@@ -1,7 +1,5 @@
 <template>
-  <div>
-      hello world
-  </div>
+  <h1>session-current</h1>
 </template>
 
 <script setup lang="ts">

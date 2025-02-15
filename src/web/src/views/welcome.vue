@@ -1,7 +1,5 @@
 <template>
-  <div>
-      hello world
-  </div>
+  <h1>welcome to GainStar</h1>
 </template>
 
 <script setup lang="ts">
