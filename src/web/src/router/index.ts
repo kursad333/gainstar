@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HelloWorld from '../components/HelloWorld.vue'
 import SessionCurrent from "@/views/session-current.vue";
 import SessionCreate from "@/views/session-create.vue";
 import SessionAdd from "@/views/session-add.vue";
