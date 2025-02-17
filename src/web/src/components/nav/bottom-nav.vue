@@ -25,11 +25,21 @@
 
 <style scoped>
 nav {
-  background-color: #8c81fd;
+  background-color: #4636FC;
+  color: #a69efa;
+  border-radius: 15px;
+}
+.active {
   color: #ffffff;
 }
 
-.active {
-  color: #4636FC;
+@media (max-width: 767px) {
+  nav {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: calc(100%);
+    border-radius: 0;
+  }
 }
 </style>

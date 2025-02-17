@@ -1,5 +1,5 @@
 <template>
-  <div class="container p-3 flex-col justify-between md:w-2/3 xl:w-2/5">
+  <div class="container p-3 flex flex-col justify-between content-center md:w-2/3 xl:w-2/5">
     <slot></slot>
   </div>
 </template>
@@ -16,4 +16,6 @@
     min-height: calc(100vh - 6px);
   }
 }
+
+
 </style>
