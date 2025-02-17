@@ -1,9 +1,16 @@
-
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @import './reset.css';
 @import "tailwindcss";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+#app {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+}
 
 :root {
     --primary-color: #4636FC;
