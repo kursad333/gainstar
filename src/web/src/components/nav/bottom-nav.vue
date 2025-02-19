@@ -1,5 +1,5 @@
 <template>
-  <nav class="w-auto flex justify-evenly items-center px-1 h-13 text-2xl md:h-15 lg:text-3xl">
+  <nav class="flex justify-evenly items-center px-1 h-13 text-2xl md:h-15 lg:text-3xl">
     <router-link to="/"
                  active-class="active" class="w-10 text-center">
       <i class="bi bi-house-fill"/>
@@ -35,11 +35,12 @@ nav {
 
 @media (max-width: 767px) {
   nav {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: calc(100%);
     border-radius: 0;
   }
 }
+
 </style>
