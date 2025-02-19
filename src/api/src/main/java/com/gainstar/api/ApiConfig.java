@@ -9,9 +9,7 @@ public class ApiConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Voeg OPTIONS toe
-                .allowedHeaders("*") // Toestaan van alle headers
-                .allowCredentials(true); // Indien van toepassing
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE");
     }
 }
