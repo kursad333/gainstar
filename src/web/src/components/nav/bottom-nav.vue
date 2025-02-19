@@ -1,5 +1,5 @@
 <template>
-  <nav class="w-auto flex justify-evenly items-center px-1 h-10 text-2xl md:h-15 lg:text-3xl">
+  <nav class="w-auto flex justify-evenly items-center px-1 h-13 text-2xl md:h-15 lg:text-3xl">
     <router-link to="/"
                  active-class="active" class="w-10 text-center">
       <i class="bi bi-house-fill"/>
