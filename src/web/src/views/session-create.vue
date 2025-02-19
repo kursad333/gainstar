@@ -4,7 +4,9 @@
   <div class="grid grid-cols-2 gap-1">
     <div
       class="group-container p-3 f-mono fw-400 text-center cursor-pointer"
-      :class="selectedMuscleGroups.includes(muscle) ? 'active' : '' " v-for="muscle in muscleGroups"
+      :class="selectedMuscleGroups.includes(muscle) ? 'active' : '' "
+      v-for="muscle in allMuscleGroups"
+      :key="muscle.id"
       @click="() => {selectMuscleGroup(muscle)}">
       {{ muscle.toUpperCase() }}
     </div>
@@ -12,25 +14,37 @@
 </template>
 
 <script setup lang="ts">
-import {type Ref, ref} from "vue";
+import {onMounted, type Ref, ref} from "vue";
+import type {MuscleGroup} from "@/model/MuscleGroup.ts";
+import {sessionService} from "@/service/SessonService.ts";
 
-const muscleGroups: Ref<string[]> = ref<string[]>([
-  "Chest",
-  "Back",
-  "Legs",
-  "Shoulders",
-  "Arms",
-  "Core",
-  "Cardio",
-  "Other"
-]);
-const selectedMuscleGroups: Ref<string[]> = ref<string[]>([]);
+const selectedMuscleGroups: Ref<number[]> = ref<number[]>([]);
+const allMuscleGroups: Ref<MuscleGroup[]> = ref<MuscleGroup[]>([]);
+const isLoading: Ref<boolean> = ref(false);
 
-const selectMuscleGroup = (muscleGroup: string) => {
-  if (selectedMuscleGroups.value.includes(muscleGroup)) {
-    selectedMuscleGroups.value = selectedMuscleGroups.value.filter((group) => group !== muscleGroup);
+onMounted(() => {
+  fetchAllMuscleGroups()
+  console.log(allMuscleGroups)
+})
+
+function fetchAllMuscleGroups(): void {
+  sessionService.getAllMuscleGroups()
+      .then((response: MuscleGroup[]) => {
+        console.log(response)
+        allMuscleGroups.value = response;
+        isLoading.value = false;
+      })
+      .catch((error: string) => {
+        console.log(error);
+      });
+  console.log("done fetching")
+}
+
+const selectMuscleGroup = (muscleGroupId: id) => {
+  if (selectedMuscleGroups.value.includes(muscleGroupId)) {
+    selectedMuscleGroups.value = selectedMuscleGroups.value.filter((group) => group !== muscleGroupId);
   } else {
-    selectedMuscleGroups.value.push(muscleGroup);
+    selectedMuscleGroups.value.push(muscleGroupId);
   }
   console.log(selectedMuscleGroups);
 }
@@ -48,11 +62,6 @@ const selectMuscleGroup = (muscleGroup: string) => {
   color: white;
 }
 </style>
-
-
-<script setup lang="ts">
-
-</script>
 
 <style scoped>
 
