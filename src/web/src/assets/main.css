@@ -42,3 +42,16 @@
     font-weight: 600;
 }
 
+textarea {
+    border: 2px solid black;
+    border-radius: 2px;
+    padding: 10px;
+
+    &:focus {
+        border: 2px solid var(--primary-color);
+        outline: 2px solid var(--primary-color);
+    }
+}
+
+
+
