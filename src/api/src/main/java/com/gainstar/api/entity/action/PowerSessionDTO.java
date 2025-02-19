@@ -8,7 +8,7 @@ public record PowerSessionDTO(
         LocalDateTime startTime,
         LocalDateTime endTime,
         String name,
-        String group,
+        List<MuscleGroup> group,
         List<PowerActionDTO> actions
 ) {
     public PowerSessionDTO {

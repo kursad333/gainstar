@@ -9,9 +9,8 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class PowerSession extends Session {
     private String name;
-
-    @Enumerated(EnumType.STRING)
-    private PowerGroup powerGroup;
+    @OneToMany
+    private List<MuscleGroup> muscleGroupList = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<PowerAction> exerciseList = new ArrayList<>();
 
@@ -23,12 +22,11 @@ public class PowerSession extends Session {
         this.name = name;
     }
 
-    public PowerGroup getPowerGroup() {
-        return powerGroup;
+    public List<MuscleGroup> getMuscleGroupList() {
+        return muscleGroupList;
     }
-
-    public void setPowerGroup(PowerGroup powerGroup) {
-        this.powerGroup = powerGroup;
+    public void setMuscleGroupList(List<MuscleGroup> muscleGroupList) {
+        this.muscleGroupList = muscleGroupList;
     }
 
     public List<PowerAction> getExerciseList() {

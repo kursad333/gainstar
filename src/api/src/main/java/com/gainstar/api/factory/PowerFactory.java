@@ -20,11 +20,7 @@ public class PowerFactory {
         powerSession.setUserId(powerSessionDTO.userId());
         powerSession.setName(powerSessionDTO.name());
 
-        if (EnumValidator.isValidPowerGroup(powerSessionDTO.group())) {
-            powerSession.setPowerGroup(PowerGroup.valueOf(powerSessionDTO.group()));
-        } else {
-            throw new IllegalArgumentException("Invalid power group");
-        }
+        powerSession.setMuscleGroupList(powerSessionDTO.group());
 
         powerSession.setStartTime(powerSessionDTO.startTime());
         powerSession.setEndTime(powerSessionDTO.endTime());

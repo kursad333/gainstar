@@ -1,22 +1,31 @@
 package com.gainstar.api.controller;
 
 
+import com.gainstar.api.entity.action.MuscleGroup;
 import com.gainstar.api.entity.action.PowerSession;
 import com.gainstar.api.entity.action.PowerActionDTO;
 import com.gainstar.api.entity.action.PowerSessionDTO;
+import com.gainstar.api.service.MuscleGroupService;
 import com.gainstar.api.service.PowerSessionService;
 import com.gainstar.api.service.UserService;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/power")
 public class PowerSessionController {
 
     private final PowerSessionService powerSessionService;
+    private final MuscleGroupService muscleGroupService;
 
-    public PowerSessionController(PowerSessionService powerSessionService) {
+    public PowerSessionController(PowerSessionService powerSessionService, MuscleGroupService muscleGroupService) {
         this.powerSessionService = powerSessionService;
+        this.muscleGroupService = muscleGroupService;
     }
 
     @PostMapping("/session/create")
@@ -55,6 +64,20 @@ public class PowerSessionController {
             return ResponseEntity
                     .status(200)
                     .body(powerSession);
+        } else {
+            return ResponseEntity
+                    .status(404)
+                    .body(null);
+        }
+    }
+
+    @GetMapping("/musclegroups")
+    public ResponseEntity<List<MuscleGroup>> getMusclegroup() {
+        List<MuscleGroup> muscleGroupList  = this.muscleGroupService.getAllMuscleGroups();
+        if (muscleGroupList != null) {
+            return ResponseEntity
+                    .status(200)
+                    .body(muscleGroupList);
         } else {
             return ResponseEntity
                     .status(404)

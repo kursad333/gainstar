@@ -29,7 +29,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestBody UserCreationDTO user) {
         try {
             User newUser = this.userService.createUser(user);
