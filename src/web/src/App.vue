@@ -6,7 +6,7 @@ import BottomNav from "@/components/nav/bottom-nav.vue";
 
 <template>
   <mobile-container>
-    <main class="content">
+    <main class="pb-12">
       <RouterView />
     </main>
     <bottom-nav/>

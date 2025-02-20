@@ -4,11 +4,6 @@
     box-sizing: border-box;
 }
 
-/* 2. Remove default margin */
-* {
-    margin: 0;
-}
-
 body {
     /* 3. Add accessible line-height */
     line-height: 1.5;

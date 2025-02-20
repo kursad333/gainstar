@@ -1,15 +1,34 @@
 <template>
   <h1 class="f-montserrat fw-400 text-4xl py-5">NIEUWE WORKOUT</h1>
   <h2 class="f-montserrat fw-400 text-3">SELECTEER GROEPEN</h2>
-  <div class="grid grid-cols-2 gap-1">
+  <div class="grid grid-cols-2 gap-1 mb-3">
     <div
-      class="group-container p-3 f-mono fw-400 text-center cursor-pointer"
-      :class="selectedMuscleGroups.includes(muscle) ? 'active' : '' "
-      v-for="muscle in allMuscleGroups"
-      :key="muscle.id"
-      @click="() => {selectMuscleGroup(muscle)}">
-      {{ muscle.toUpperCase() }}
+        class="group-container p-3 f-mono fw-400 text-center cursor-pointer"
+        :class="selectedMuscleGroups.includes(muscle.id) ? 'active' : '' "
+        v-for="muscle in allMuscleGroups"
+        :key="muscle.id"
+        @click="() => {selectMuscleGroup(muscle.id)}"
+        @keydown.enter="selectMuscleGroup(muscle.id)"
+        @keydown.space.prevent="selectMuscleGroup(muscle.id)"
+        tabindex="0">
+      <p>{{ muscle?.name }}</p>
     </div>
+  </div>
+  <div class="flex flex-col my-4">
+    <h2 class="f-montserrat fw-400 text-3">OPMERKINGEN</h2>
+    <textarea class="w-full h-20" spellcheck="false"></textarea>
+  </div>
+  <div class="flex flex-col my-4">
+    <h2 class="f-montserrat fw-400 text-3">OPMERKINGEN</h2>
+    <textarea class="w-full h-20" spellcheck="false"></textarea>
+  </div>
+  <div class="flex flex-col my-4">
+    <h2 class="f-montserrat fw-400 text-3">OPMERKINGEN</h2>
+    <textarea class="w-full h-20" spellcheck="false"></textarea>
+  </div>
+  <div class="flex flex-col my-4">
+    <h2 class="f-montserrat fw-400 text-3">OPMERKINGEN</h2>
+    <textarea class="w-full h-20" spellcheck="false"></textarea>
   </div>
 </template>
 
@@ -24,20 +43,20 @@ const isLoading: Ref<boolean> = ref(false);
 
 onMounted(() => {
   fetchAllMuscleGroups()
-  console.log(allMuscleGroups)
+  console.warn(allMuscleGroups)
 })
 
 function fetchAllMuscleGroups(): void {
   sessionService.getAllMuscleGroups()
       .then((response: MuscleGroup[]) => {
-        console.log(response)
-        allMuscleGroups.value = response;
+        allMuscleGroups.value = response.map((group: MuscleGroup) =>
+            ({id: group.id, name: group.name?.toUpperCase() ?? `#${group.id}`})
+        )
         isLoading.value = false;
       })
       .catch((error: string) => {
         console.log(error);
       });
-  console.log("done fetching")
 }
 
 const selectMuscleGroup = (muscleGroupId: id) => {

@@ -15,5 +15,8 @@ public record PowerSessionDTO(
         if (actions == null) {
             actions = List.of(); // Ensure it's always non-null
         }
+        if (group == null) {
+            group = List.of(); // Ensure it's always non-null
+        }
     }
 }

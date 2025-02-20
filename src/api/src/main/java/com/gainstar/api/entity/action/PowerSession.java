@@ -9,8 +9,10 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class PowerSession extends Session {
     private String name;
+
     @OneToMany
     private List<MuscleGroup> muscleGroupList = new ArrayList<>();
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<PowerAction> exerciseList = new ArrayList<>();
 
